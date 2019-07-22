@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServerApnetCore.OAuth
 {
@@ -20,7 +21,8 @@ namespace IdentityServerApnetCore.OAuth
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential() //.AddTemporarySigningCredential()
+                //.AddDeveloperSigningCredential() //.AddTemporarySigningCredential()
+                .AddSigningCredential(new X509Certificate2(@"C:\Temp\identityserver4fullexample.pfx", "123456"))
                 .AddTestUsers(InMemoryConfiguration.GetUsers().ToList())
                 .AddInMemoryClients(InMemoryConfiguration.GetClients())
                 .AddInMemoryApiResources(InMemoryConfiguration.GetApiResources());
