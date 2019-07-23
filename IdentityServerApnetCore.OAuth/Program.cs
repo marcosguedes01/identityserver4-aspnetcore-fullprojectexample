@@ -21,7 +21,7 @@ namespace IdentityServerApnetCore.OAuth
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://localhost:52047");
+                    webBuilder.UseUrls("http://localhost:52047");
                 });
     }
 }
