@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -66,6 +67,8 @@ namespace IdentityServerAspNetCore.Web
             }
 
             app.UseAuthentication();
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

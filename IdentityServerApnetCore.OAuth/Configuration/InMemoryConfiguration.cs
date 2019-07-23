@@ -45,6 +45,7 @@ namespace IdentityServerApnetCore.OAuth.Configuration
                         IdentityServerConstants.StandardScopes.Profile,
                         "identityserverfullexample"
                     },
+                    AllowAccessTokensViaBrowser = true,
                     RedirectUris = new [] { "http://localhost:62990/signin-oidc" },
                     PostLogoutRedirectUris = new [] { "http://localhost:62990/ignout-callback-oidc" }
                 }

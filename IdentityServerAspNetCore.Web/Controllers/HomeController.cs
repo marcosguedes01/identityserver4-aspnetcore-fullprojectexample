@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using IdentityServerAspNetCore.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace IdentityServerAspNetCore.Web.Controllers
 {
@@ -20,6 +21,12 @@ namespace IdentityServerAspNetCore.Web.Controllers
         public IActionResult About()
         {
             return View();
+        }
+
+        public async Task Logout()
+        {
+            //await HttpContext.SignOutAsync(IdentityServerConstants.DefaultCookieAuthenticationScheme);
+            await HttpContext.SignOutAsync();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
