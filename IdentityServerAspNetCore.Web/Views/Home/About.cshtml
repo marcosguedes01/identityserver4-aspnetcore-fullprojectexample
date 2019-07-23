@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Authentication
+
+@{
+    ViewData["Title"] = "About";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <strong>id_token: </strong>
+    <span style="overflow-wrap: break-word;">@await ViewContext.HttpContext.GetTokenAsync("id_token")</span>
+</div>
+
+<br/>
+
+<div>
+    <strong>access_token: </strong>
+    <span style="overflow-wrap: break-word;">@await ViewContext.HttpContext.GetTokenAsync("access_token")</span>
+</div>
+
+<br />
+
+@foreach(var claim in User.Claims)
+{
+    <div>
+        <strong>@claim.Type: </strong>
+        <span>@claim.Value</span>
+    </div>
+}

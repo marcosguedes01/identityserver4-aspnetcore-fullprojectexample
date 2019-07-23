@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServerApnetCore.OAu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerAspNetCore.Api", "IdentityServerAspNetCore.Api\IdentityServerAspNetCore.Api.csproj", "{CECA0C9B-C5DA-4CC5-A0C3-67131271C33D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerAspNetCore.Web", "IdentityServerAspNetCore.Web\IdentityServerAspNetCore.Web.csproj", "{854372EF-F865-4CF9-BA46-E6374BB8682E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CECA0C9B-C5DA-4CC5-A0C3-67131271C33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CECA0C9B-C5DA-4CC5-A0C3-67131271C33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CECA0C9B-C5DA-4CC5-A0C3-67131271C33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{854372EF-F865-4CF9-BA46-E6374BB8682E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854372EF-F865-4CF9-BA46-E6374BB8682E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{854372EF-F865-4CF9-BA46-E6374BB8682E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854372EF-F865-4CF9-BA46-E6374BB8682E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
