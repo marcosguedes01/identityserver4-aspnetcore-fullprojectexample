@@ -39,6 +39,7 @@ namespace IdentityServerAspNetCore.Web
                 options.SignedOutRedirectUri = "http://localhost:62990";
                 options.RequireHttpsMetadata = false;
                 options.SaveTokens = true;
+                options.ResponseType = "id_token token";
             });
 
             services.Configure<CookiePolicyOptions>(options =>
