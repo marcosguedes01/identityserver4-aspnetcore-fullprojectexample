@@ -43,13 +43,13 @@ namespace IdentityServerApnetCore.OAuth
             services.AddRazorPages();
 
             services.AddAuthentication()
-                //.AddGoogle("Google", options =>
-                //{
-                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                .AddGoogle("Google", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
 
-                //    options.ClientId = "<insert here>";
-                //    options.ClientSecret = "<inser here>";
-                //})
+                    options.ClientId = "<insert here>";
+                    options.ClientSecret = "<inser here>";
+                })
                 .AddOpenIdConnect("demoidsrv", "IdentityServer", options =>
                 {
                     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;

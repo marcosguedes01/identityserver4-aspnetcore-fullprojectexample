@@ -9,3 +9,6 @@ openssl pkcs12 -export -in identityserver4fullexample.cer -inkey identityserver4
 
 ## Comando para instalação do QuickStart (via PowerShell)
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/IdentityServer/IdentityServer4.Quickstart.UI/release/get.ps1'))
+
+## Adicionando o Google como alternativa de Login
+http://docs.identityserver.io/en/latest/quickstarts/4_external_authentication.html#refexternalauthenticationquickstart
