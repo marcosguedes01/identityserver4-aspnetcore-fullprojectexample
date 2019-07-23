@@ -16,6 +16,7 @@ namespace IdentityServerAspNetCore.Web.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

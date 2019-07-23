@@ -30,6 +30,7 @@ namespace IdentityServerApnetCore.OAuth
                 .AddSigningCredential(new X509Certificate2(@"C:\Temp\identityserver4fullexample.pfx", "123456"))
                 .AddTestUsers(InMemoryConfiguration.GetUsers().ToList())
                 .AddInMemoryClients(InMemoryConfiguration.GetClients())
+                .AddInMemoryIdentityResources(InMemoryConfiguration.GetIdentityResources())
                 .AddInMemoryApiResources(InMemoryConfiguration.GetApiResources());
 
             services.Configure<CookiePolicyOptions>(options =>

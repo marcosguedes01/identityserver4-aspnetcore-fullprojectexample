@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
 
@@ -14,6 +15,15 @@ namespace IdentityServerApnetCore.OAuth.Configuration
             };
         }
 
+        public static IEnumerable<IdentityResource> GetIdentityResources()
+        {
+            return new IdentityResource[]
+            {
+                new IdentityResources.OpenId(),
+                new IdentityResources.Profile()
+            };
+        }
+
         public static IEnumerable<Client> GetClients()
         {
             return new[]
@@ -24,6 +34,19 @@ namespace IdentityServerApnetCore.OAuth.Configuration
                     ClientSecrets = new [] { new Secret("secret".Sha256()) },
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowedScopes = new [] { "identityserverfullexample" }
+                },
+                new Client
+                {
+                    ClientId = "identityserverfullexample_implicit",
+                    ClientSecrets = new [] { new Secret("secret".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedScopes = new [] {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "identityserverfullexample"
+                    },
+                    RedirectUris = new [] { "http://localhost:62990/signin-oidc" },
+                    PostLogoutRedirectUris = new [] { "http://localhost:62990/ignout-callback-oidc" }
                 }
             };
         }
