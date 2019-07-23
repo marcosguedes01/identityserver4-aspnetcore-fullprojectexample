@@ -1,8 +1,11 @@
+using IdentityServer4;
 using IdentityServerApnetCore.OAuth.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -38,6 +41,34 @@ namespace IdentityServerApnetCore.OAuth
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAuthentication()
+                //.AddGoogle("Google", options =>
+                //{
+                //    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                //    options.ClientId = "<insert here>";
+                //    options.ClientSecret = "<inser here>";
+                //})
+                .AddOpenIdConnect("demoidsrv", "IdentityServer", options =>
+                {
+                    options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+                    options.SignOutScheme = IdentityServerConstants.SignoutScheme;
+
+                    options.Authority = "https://demo.identityserver.io/";
+                    options.ClientId = "implicit";
+                    options.ResponseType = "id_token";
+                    options.SaveTokens = true;
+                    options.CallbackPath = new PathString("/signin-idsrv");
+                    options.SignedOutCallbackPath = new PathString("/signout-callback-idsrv");
+                    options.RemoteSignOutPath = new PathString("/signout-idsrv");
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = "name",
+                        RoleClaimType = "role"
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,8 +96,6 @@ namespace IdentityServerApnetCore.OAuth
             app.UseRouting();
 
             app.UseAuthorization();
-
-            //app.UseMvcWithDefaultRoute();
 
             app.UseEndpoints(endpoints =>
             {
