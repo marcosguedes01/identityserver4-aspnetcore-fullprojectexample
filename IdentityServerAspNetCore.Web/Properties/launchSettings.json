@@ -1,9 +1,15 @@
 ﻿{
+  "iisSettings": {
+    "windowsAuthentication": false, 
+    "anonymousAuthentication": true, 
+    "iisExpress": {
+      "applicationUrl": "http://localhost:62990"
+    }
+  },
   "profiles": {
-    "IdentityServerAspNetCore.Web": {
-      "commandName": "Project",
+    "IIS Express": {
+      "commandName": "IISExpress",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:62990",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
