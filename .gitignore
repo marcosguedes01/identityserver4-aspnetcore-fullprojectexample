@@ -1,3 +1,5 @@
 .vs
 IdentityServerApnetCore.OAuth/bin
 IdentityServerApnetCore.OAuth/obj
+IdentityServerAspNetCore.Api/bin
+IdentityServerAspNetCore.Api/obj

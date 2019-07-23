@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace IdentityServerApnetCore.OAuth
+namespace IdentityServerAspNetCore.Api
 {
     public class Program
     {
@@ -21,7 +21,6 @@ namespace IdentityServerApnetCore.OAuth
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("https://localhost:52047");
                 });
     }
 }
