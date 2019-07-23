@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using IdentityServerAspNetCore.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace IdentityServerAspNetCore.Web.Controllers
 {
@@ -25,8 +27,8 @@ namespace IdentityServerAspNetCore.Web.Controllers
 
         public async Task Logout()
         {
-            //await HttpContext.SignOutAsync(IdentityServerConstants.DefaultCookieAuthenticationScheme);
-            await HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

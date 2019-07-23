@@ -47,7 +47,7 @@ namespace IdentityServerApnetCore.OAuth.Configuration
                     },
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = new [] { "http://localhost:62990/signin-oidc" },
-                    PostLogoutRedirectUris = new [] { "http://localhost:62990/ignout-callback-oidc" }
+                    PostLogoutRedirectUris = new [] { "http://localhost:62990/signout-callback-oidc" }
                 }
             };
         }
