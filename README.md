@@ -12,3 +12,14 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 ## Adicionando o Google como alternativa de Login
 http://docs.identityserver.io/en/latest/quickstarts/4_external_authentication.html#refexternalauthenticationquickstart
+
+## Dados a serem preenchidos no Postman
+### http://localhost:52047/connect/token  (Identity Server)
+* client_id: identityserverfullexample
+* client_secret: secret
+* grant_type: password (ou client_credentials, sem especificar username e password)
+* username: usertest@domain.com
+* password: password
+
+### http://localhost:54743/api/values  (API)
+* Authorization: Bearer <Token Gerado pelo Identity Server>
