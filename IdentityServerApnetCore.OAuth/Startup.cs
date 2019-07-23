@@ -20,6 +20,8 @@ namespace IdentityServerApnetCore.OAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+
             services.AddIdentityServer()
                 //.AddDeveloperSigningCredential() //.AddTemporarySigningCredential()
                 .AddSigningCredential(new X509Certificate2(@"C:\Temp\identityserver4fullexample.pfx", "123456"))
@@ -64,13 +66,15 @@ namespace IdentityServerApnetCore.OAuth
 
             app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Index}/{id?}");
-            //    endpoints.MapRazorPages();
-            //});
+            //app.UseMvcWithDefaultRoute();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
