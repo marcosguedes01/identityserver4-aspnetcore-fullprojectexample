@@ -31,15 +31,21 @@ namespace IdentityServerAspNetCore.Web
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
-            .AddCookie()
-            .AddOpenIdConnect(options =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Authority = "http://localhost:52047";
-                options.ClientId = "identityserverfullexample_implicit";
+                options.ClientId = "identityserverfullexample_code";
+                options.ClientSecret = "secret";
                 options.SignedOutRedirectUri = "http://localhost:62990";
                 options.RequireHttpsMetadata = false;
                 options.SaveTokens = true;
-                options.ResponseType = "id_token token";
+                options.ResponseType = "id_token code";
+                options.GetClaimsFromUserInfoEndpoint = true;
+
+                options.Scope.Add("identityserverfullexample");
+                options.Scope.Add("offline_access");
             });
 
             services.Configure<CookiePolicyOptions>(options =>
