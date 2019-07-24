@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace IdentityServerAspNetCore.Web.Controllers
 {
@@ -23,6 +25,24 @@ namespace IdentityServerAspNetCore.Web.Controllers
         public IActionResult About()
         {
             return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Values()
+        {
+            var token = await HttpContext.GetTokenAsync("access_token");
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                var valuesResponse = await (await client.GetAsync($"http://localhost:54743/api/values")).Content.ReadAsStringAsync();
+
+                var values = JsonConvert.DeserializeObject<string[]>(valuesResponse);
+
+                return View(values);
+            }
         }
 
         public async Task Logout()

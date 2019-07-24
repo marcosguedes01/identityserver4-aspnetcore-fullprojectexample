@@ -2,6 +2,7 @@
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace IdentityServerApnetCore.OAuth.Configuration
 {
@@ -20,7 +21,8 @@ namespace IdentityServerApnetCore.OAuth.Configuration
             return new IdentityResource[]
             {
                 new IdentityResources.OpenId(),
-                new IdentityResources.Profile()
+                new IdentityResources.Profile(),
+                new IdentityResources.Email(),
             };
         }
 
@@ -81,7 +83,8 @@ namespace IdentityServerApnetCore.OAuth.Configuration
                 {
                     SubjectId= "1",
                     Username = "usertest@domain.com",
-                    Password = "password"
+                    Password = "password",
+                    Claims = new [] { new Claim("email", "usertest@domain.com") }
                 }
             };
         }

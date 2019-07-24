@@ -46,6 +46,7 @@ namespace IdentityServerAspNetCore.Web
 
                 options.Scope.Add("identityserverfullexample");
                 options.Scope.Add("offline_access");
+                options.Scope.Add("email");
             });
 
             services.Configure<CookiePolicyOptions>(options =>
