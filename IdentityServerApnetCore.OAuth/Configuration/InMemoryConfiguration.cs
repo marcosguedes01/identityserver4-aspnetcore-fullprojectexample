@@ -13,6 +13,9 @@ namespace IdentityServerApnetCore.OAuth.Configuration
             return new[]
             {
                 new ApiResource("identityserverfullexample", "Identity Server 4 Full Example")
+                {
+                    UserClaims = new []{ "email" }
+                }
             };
         }
 
