@@ -10,7 +10,7 @@
     <span style="overflow-wrap: break-word;">@await ViewContext.HttpContext.GetTokenAsync("id_token")</span>
 </div>
 
-<br/>
+<br />
 
 <div>
     <strong>access_token: </strong>
@@ -19,7 +19,14 @@
 
 <br />
 
-@foreach(var claim in User.Claims)
+<div>
+    <strong>refresh_token: </strong>
+    <span style="overflow-wrap: break-word;">@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</span>
+</div>
+
+<br />
+
+@foreach (var claim in User.Claims)
 {
     <div>
         <strong>@claim.Type: </strong>
