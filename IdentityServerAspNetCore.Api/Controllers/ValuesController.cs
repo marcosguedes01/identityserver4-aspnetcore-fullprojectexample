@@ -16,9 +16,9 @@ namespace IdentityServerAspNetCore.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            var claims = User.Claims;
+            var email = User.Claims.First(x => x.Type == "email").Value;
 
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2", email };
         }
 
         // GET api/values/5

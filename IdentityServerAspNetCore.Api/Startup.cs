@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -28,15 +29,27 @@ namespace IdentityServerAspNetCore.Api
         {
             services.AddControllers();
 
+
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
+            }).AddIdentityServerAuthentication(options =>
             {
-                o.Authority = "http://localhost:52047";
-                o.Audience = "identityserverfullexample";
-                o.RequireHttpsMetadata = false;
+                options.Authority = "http://localhost:52047";
+                options.RequireHttpsMetadata = false;
+                options.EnableCaching = true;
+
+                options.ApiName = "identityserverfullexample";
+                //options.ApiSecret = "secret";
+
+                options.JwtBearerEvents.OnAuthenticationFailed = context => { return Task.CompletedTask; };
+
+                options.JwtBearerEvents.OnTokenValidated = async context =>
+                {
+                    
+                };
             });
         }
 
