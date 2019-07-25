@@ -28,9 +28,7 @@ namespace IdentityServerAspNetCore.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-
-
+                       
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -40,7 +38,7 @@ namespace IdentityServerAspNetCore.Api
                 options.Authority = "http://localhost:52047";
                 options.RequireHttpsMetadata = false;
                 options.EnableCaching = true;
-
+                
                 options.ApiName = "identityserverfullexample";
                 //options.ApiSecret = "secret";
 
