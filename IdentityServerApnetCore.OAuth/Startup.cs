@@ -1,12 +1,16 @@
 using IdentityServer4;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
 using IdentityServerApnetCore.OAuth.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServerApnetCore.OAuth
@@ -23,15 +27,30 @@ namespace IdentityServerApnetCore.OAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("IdentityServer.OAuth");
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+
             services.AddMvc();
 
             services.AddIdentityServer()
                 //.AddDeveloperSigningCredential() //.AddTemporarySigningCredential()
                 .AddSigningCredential(new X509Certificate2(@"C:\Temp\identityserver4fullexample.pfx", "123456"))
                 .AddTestUsers(InMemoryConfiguration.GetUsers().ToList())
-                .AddInMemoryClients(InMemoryConfiguration.GetClients())
-                .AddInMemoryIdentityResources(InMemoryConfiguration.GetIdentityResources())
-                .AddInMemoryApiResources(InMemoryConfiguration.GetApiResources());
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(connectionString,
+                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                }).AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                        builder.UseSqlServer(connectionString,
+                        sql => sql.MigrationsAssembly(migrationsAssembly));
+                });
+
+            //.AddInMemoryClients(InMemoryConfiguration.GetClients())
+            //.AddInMemoryIdentityResources(InMemoryConfiguration.GetIdentityResources())
+            //.AddInMemoryApiResources(InMemoryConfiguration.GetApiResources());
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -75,19 +94,10 @@ namespace IdentityServerApnetCore.OAuth
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            MigrateInMemoryDataToSqlServer(app);
+
             app.UseDeveloperExceptionPage();
             app.UseIdentityServer();
-
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -105,6 +115,48 @@ namespace IdentityServerApnetCore.OAuth
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        public void MigrateInMemoryDataToSqlServer(IApplicationBuilder app)
+        {
+            using(var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
+                var context = scope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+
+                context.Database.Migrate();
+
+                if (!context.Clients.Any())
+                {
+                    foreach (var client in InMemoryConfiguration.GetClients())
+                    {
+                        context.Clients.Add(client.ToEntity());
+                    }
+
+                    context.SaveChanges();
+                }
+
+                if (!context.IdentityResources.Any())
+                {
+                    foreach (var resource in InMemoryConfiguration.GetIdentityResources())
+                    {
+                        context.IdentityResources.Add(resource.ToEntity());
+                    }
+
+                    context.SaveChanges();
+                }
+
+                if (!context.ApiResources.Any())
+                {
+                    foreach (var resource in InMemoryConfiguration.GetApiResources())
+                    {
+                        context.ApiResources.Add(resource.ToEntity());
+                    }
+
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
