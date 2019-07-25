@@ -13,6 +13,16 @@ namespace IdentityServerAspNetCore.Data.Repositories
         {
         }
 
+        public async Task<User> GetAsync(string username)
+        {
+            using (var connection = OpenConnection())
+            {
+                var queryResult = await connection.QueryAsync<User>("SELECT * FROM [Users] WHERE Username=@username", new { username });
+
+                return queryResult.SingleOrDefault();
+            }
+        }
+
         public async Task<User> GetAsync(string username, string password)
         {
             using (var connection = OpenConnection())
@@ -22,5 +32,11 @@ namespace IdentityServerAspNetCore.Data.Repositories
                 return queryResult.SingleOrDefault();
             }
         }
+    }
+
+    public interface IUserRepository
+    {
+        Task<User> GetAsync(string username);
+        Task<User> GetAsync(string username, string password);
     }
 }

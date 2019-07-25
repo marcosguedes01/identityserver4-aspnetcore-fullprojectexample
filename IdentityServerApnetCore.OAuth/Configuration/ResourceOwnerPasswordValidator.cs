@@ -1,7 +1,10 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 using IdentityServer4.Validation;
 using IdentityServerApnetCore.OAuth.Helpers;
 using IdentityServerAspNetCore.Data.Repositories;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IdentityServerApnetCore.OAuth.Configuration
@@ -20,7 +23,12 @@ namespace IdentityServerApnetCore.OAuth.Configuration
 
             if (user != null)
             {
-                context.Result = new GrantValidationResult(user.Id.ToString(), authenticationMethod: "custom");
+                var claims = new List<Claim>
+                {
+                    new Claim("email", "email@ResourceOwnerPasswordValidator.com")
+                };
+
+                context.Result = new GrantValidationResult(user.Id.ToString(), authenticationMethod: "custom", claims: claims);
             }
             else
             {

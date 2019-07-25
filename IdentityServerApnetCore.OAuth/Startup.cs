@@ -31,6 +31,7 @@ namespace IdentityServerApnetCore.OAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IUserValidator, UserValidator>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddSingleton<Func<IDbConnection>>(() => new SqlConnection(Configuration.GetConnectionString("IdentityServer.Data")));
 
