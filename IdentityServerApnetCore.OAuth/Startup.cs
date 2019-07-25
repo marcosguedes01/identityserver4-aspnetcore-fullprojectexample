@@ -2,6 +2,7 @@ using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using IdentityServerApnetCore.OAuth.Configuration;
+using IdentityServerAspNetCore.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
@@ -27,6 +31,9 @@ namespace IdentityServerApnetCore.OAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddSingleton<Func<IDbConnection>>(() => new SqlConnection(Configuration.GetConnectionString("IdentityServer.Data")));
+
             var connectionString = Configuration.GetConnectionString("IdentityServer.OAuth");
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
 
@@ -35,7 +42,7 @@ namespace IdentityServerApnetCore.OAuth
             services.AddIdentityServer()
                 //.AddDeveloperSigningCredential() //.AddTemporarySigningCredential()
                 .AddSigningCredential(new X509Certificate2(@"C:\Temp\identityserver4fullexample.pfx", "123456"))
-                .AddTestUsers(InMemoryConfiguration.GetUsers().ToList())
+                .AddResourceOwnerValidator<ResourceOwnerPasswordValidator>()
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
@@ -48,6 +55,7 @@ namespace IdentityServerApnetCore.OAuth
                         sql => sql.MigrationsAssembly(migrationsAssembly));
                 });
 
+            //.AddTestUsers(InMemoryConfiguration.GetUsers().ToList())
             //.AddInMemoryClients(InMemoryConfiguration.GetClients())
             //.AddInMemoryIdentityResources(InMemoryConfiguration.GetIdentityResources())
             //.AddInMemoryApiResources(InMemoryConfiguration.GetApiResources());
