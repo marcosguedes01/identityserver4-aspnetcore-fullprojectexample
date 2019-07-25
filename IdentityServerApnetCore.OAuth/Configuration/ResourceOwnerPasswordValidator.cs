@@ -23,12 +23,7 @@ namespace IdentityServerApnetCore.OAuth.Configuration
 
             if (user != null)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim("email", "email@ResourceOwnerPasswordValidator.com")
-                };
-
-                context.Result = new GrantValidationResult(user.Id.ToString(), authenticationMethod: "custom", claims: claims);
+                context.Result = new GrantValidationResult(user.Id.ToString(), authenticationMethod: "custom", claims: user.Claims);
             }
             else
             {
