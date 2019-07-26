@@ -18,14 +18,23 @@ namespace IdentityServerApnetCore.OAuth.Configuration
             this.repository = repository;
         }
 
-        public Task<User> AutoProvisionUserAsync(string provider, string userId, IEnumerable<Claim> claims)
+        public async Task<User> AutoProvisionUserAsync(string provider, string userId, IEnumerable<Claim> claims)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                Id = Convert.ToInt32(DateTime.Now.ToString("yyyyMMddHmmss")),
+                Username = userId,
+                Password = HashHelper.Sha512(Guid.NewGuid().ToString() + userId)
+            };
+
+            await repository.AddAsync(user);
+
+            return user;
         }
 
         public Task<User> FindByExternalProviderAsync(string provider, string userId)
         {
-            throw new NotImplementedException();
+            return FindByUsernameAsync(userId);
         }
 
         public Task<User> FindByUsernameAsync(string username)

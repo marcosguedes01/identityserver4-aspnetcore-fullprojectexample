@@ -78,6 +78,8 @@ namespace IdentityServerApnetCore.OAuth
 
                     options.ClientId = "<insert here>";
                     options.ClientSecret = "<inser here>";
+                    options.CallbackPath = new PathString("/signin-google");
+                    options.ForwardSignOut = new PathString("/signout-idsrv");
                 })
                 .AddOpenIdConnect("demoidsrv", "IdentityServer", options =>
                 {
