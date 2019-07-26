@@ -1,9 +1,0 @@
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\bin\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.deps.json
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\bin\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.dll
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\obj\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.csproj.CoreCompileInputs.cache
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\obj\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.AssemblyInfoInputs.cache
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\obj\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.AssemblyInfo.cs
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\bin\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.pdb
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\obj\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.dll
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\obj\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.pdb
-C:\Users\Marcos\source\repos\IdentityServerAspnetCoreFullExample\IdentityServerAspNetCore.Data\obj\Debug\netcoreapp3.0\IdentityServerAspNetCore.Data.csprojAssemblyReference.cache
