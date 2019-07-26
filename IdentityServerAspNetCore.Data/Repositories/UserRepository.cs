@@ -13,6 +13,14 @@ namespace IdentityServerAspNetCore.Data.Repositories
         {
         }
 
+        public async Task AddAsync(User user)
+        {
+            using (var connection = OpenConnection())
+            {
+                await connection.ExecuteAsync("INSERT INTO [Users] VALUES(@username, @password)", new { user.Username, user.Password });
+            }
+        }
+
         public async Task<User> GetAsync(string username)
         {
             using (var connection = OpenConnection())
@@ -36,6 +44,7 @@ namespace IdentityServerAspNetCore.Data.Repositories
 
     public interface IUserRepository
     {
+        Task AddAsync(User user);
         Task<User> GetAsync(string username);
         Task<User> GetAsync(string username, string password);
     }
