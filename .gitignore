@@ -5,3 +5,5 @@ IdentityServerAspNetCore.Api/bin
 IdentityServerAspNetCore.Api/obj
 IdentityServerAspNetCore.Web/bin
 IdentityServerAspNetCore.Web/obj
+IdentityServerAspNetCore.Data/bin
+IdentityServerAspNetCore.Data/obj
