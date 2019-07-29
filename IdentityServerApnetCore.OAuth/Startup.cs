@@ -1,3 +1,9 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using IdentityServer4;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
@@ -10,12 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServerApnetCore.OAuth
 {
@@ -130,7 +130,7 @@ namespace IdentityServerApnetCore.OAuth
 
         public void MigrateInMemoryDataToSqlServer(IApplicationBuilder app)
         {
-            using(var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
                 scope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
 

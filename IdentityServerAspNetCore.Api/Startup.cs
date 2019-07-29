@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace IdentityServerAspNetCore.Api
 {
@@ -28,7 +21,7 @@ namespace IdentityServerAspNetCore.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-                       
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -38,7 +31,7 @@ namespace IdentityServerAspNetCore.Api
                 options.Authority = "http://localhost:52047";
                 options.RequireHttpsMetadata = false;
                 options.EnableCaching = true;
-                
+
                 options.ApiName = "identityserverfullexample";
                 //options.ApiSecret = "secret";
 
@@ -46,7 +39,7 @@ namespace IdentityServerAspNetCore.Api
 
                 options.JwtBearerEvents.OnTokenValidated = async context =>
                 {
-                    
+
                 };
             });
         }
